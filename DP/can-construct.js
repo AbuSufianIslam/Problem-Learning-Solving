@@ -1,24 +1,24 @@
 
 // Brute_force
 
-// const canConstruct = (target, wordBank) => {
-//     if(target === "") return true
+const canConstruct = (target, wordBank) => {
+    if(target === "") return true
 
 
-//     for(let word of wordBank){
-//         if(target.indexOf(word) === 0){
-//             const remainingString = target.slice(word.length)
+    for(let word of wordBank){
+        if(target.indexOf(word) === 0){
+            const remainingString = target.slice(word.length)
 
-//             if(canConstruct(remainingString, wordBank) === true){
-//                 return true
-//             }
+            if(canConstruct(remainingString, wordBank) === true){
+                return true
+            }
 
-//         }
-//     }
+        }
+    }
 
-//     return false
+    return false
 
-// }
+}
 
 
 
