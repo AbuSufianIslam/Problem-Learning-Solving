@@ -1,21 +1,21 @@
 
 //Brute_force
-// const allConstruct = (target, wordBank) => {
-//     if(target === "") return [[]]
+ const allConstruct = (target, wordBank) => {
+    if(target === "") return [[]]
 
-//     let construct = []
+    let construct = []
 
-//     for(let word of wordBank){
-//         if(target.indexOf(word) === 0){
-//             const remainingString = target.slice(word.length)
-//             const ways = allConstruct(remainingString, wordBank)
-//             const targetWays = ways.map(way => [word, ...way])
-//             construct.push(...targetWays)
-//         }
-//     }
+    for(let word of wordBank){
+        if(target.indexOf(word) === 0){
+            const remainingString = target.slice(word.length)
+            const ways = allConstruct(remainingString, wordBank)
+            const targetWays = ways.map(way => [word, ...way])
+            construct.push(...targetWays)
+        }
+    }
 
-//     return construct
-// }
+    return construct
+}
 
 
 
