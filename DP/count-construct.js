@@ -1,18 +1,18 @@
 // Brute_force
-// const countConstruct = (target, wordBank) => {
-//     if(target === "") return 1
+const countConstruct = (target, wordBank) => {
+    if(target === "") return 1
 
-//     let totalCount = 0
-//     for(let word of wordBank){
-//         if(target.indexOf(word) === 0){
-//             const remainingString = target.slice(word.length)
-//             const way = countConstruct(remainingString, wordBank)
-//             totalCount += way
-//         }
-//     }
+    let totalCount = 0
+    for(let word of wordBank){
+        if(target.indexOf(word) === 0){
+            const remainingString = target.slice(word.length)
+            const way = countConstruct(remainingString, wordBank)
+            totalCount += way
+        }
+    }
 
-//     return totalCount
-// }
+    return totalCount
+}
 
 
 //Memoization
