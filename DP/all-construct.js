@@ -1,6 +1,6 @@
 
 //Brute_force
-// const allConstruct = (target, wordBank) => {
+//  const allConstruct = (target, wordBank) => {
 //     if(target === "") return [[]]
 
 //     let construct = []
