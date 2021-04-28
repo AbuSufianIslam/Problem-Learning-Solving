@@ -28,29 +28,47 @@
 //Memoize
 
 
-const howSum = (target, numbers, memo = {}) => {
+// const howSum = (target, numbers, memo = {}) => {
 
-    if(target in memo) return memo[target]
-    if(target === 0) return []
-    if(target < 0) return null
+//     if(target in memo) return memo[target]
+//     if(target === 0) return []
+//     if(target < 0) return null
 
-    for(let num of numbers){
-            const remainder = target-num
+//     for(let num of numbers){
+//             const remainder = target-num
 
-            const remainderResult = howSum(remainder, numbers, memo)
+//             const remainderResult = howSum(remainder, numbers, memo)
 
-            if(remainderResult !== null){
-                const result = [...remainderResult, num]
-                memo[target] = result
-                return result
+//             if(remainderResult !== null){
+//                 const result = [...remainderResult, num]
+//                 memo[target] = result
+//                 return result
+//             }
+
+//     }
+//     memo[target] = null
+//     return null
+// }
+
+
+
+// Tabulation 
+
+const howSum = (target, numbers) => {
+    table = Array(target + 1).fill(null)
+    table[0] = []
+
+    for(let i = 0; i <= target; i++){
+        const curr = table[i]
+        if(curr !== null){
+            for(let num of numbers){
+                if(num + i <= target)table[i + num] = [...table[i], num]
             }
-
+        }
     }
-    memo[target] = null
-    return null
+
+    return table[target]
 }
-
-
 
 
 
