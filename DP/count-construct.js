@@ -16,23 +16,42 @@
 
 
 //Memoization
-const countConstruct = (target, wordBank, memo = {}) => {
-    if(target in memo) return memo[target]
-    if(target === "") return 1
+// const countConstruct = (target, wordBank, memo = {}) => {
+//     if(target in memo) return memo[target]
+//     if(target === "") return 1
 
-    let totalCount = 0
-    for(let word of wordBank){
-        if(target.indexOf(word) === 0){
-            const remainingString = target.slice(word.length)
-            const way = countConstruct(remainingString, wordBank, memo)
-            totalCount += way
+//     let totalCount = 0
+//     for(let word of wordBank){
+//         if(target.indexOf(word) === 0){
+//             const remainingString = target.slice(word.length)
+//             const way = countConstruct(remainingString, wordBank, memo)
+//             totalCount += way
+//         }
+//     }
+
+//     memo[target] = totalCount
+//     return totalCount
+// }
+
+
+
+//tabulation
+const countConstruct = (target, wordBank) => {
+    let table = Array(target.length + 1).fill(0)
+    table[0] = 1
+
+    for(let i = 0; i <= target.length; i++){
+        if(table[i] !== 0){
+            for(let word of wordBank){
+                if(target.slice(i, i + word.length) === word){
+                    table[i + word.length] += table[i] 
+                }
+            }
         }
     }
 
-    memo[target] = totalCount
-    return totalCount
+    return table[target.length]
 }
-
 
 
 
