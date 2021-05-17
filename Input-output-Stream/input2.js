@@ -72,6 +72,7 @@ function main() {
     }
 
     console.log(`${q} is target and ${arr} is the coin`)
+    process.exit(0);
 }
 // function abbreviation(arr) {
 //     // Write your code here
