@@ -16,30 +16,56 @@
 
 //Memoization
 
-const subsetSum = (numbers, target) => {
-    let length = numbers.length;
-    let table = Array(length + 1).fill().map(() => Array(target + 1).fill(-1));
+// const subsetSum = (numbers, target) => {
+//     let length = numbers.length;
+//     let table = Array(length + 1).fill().map(() => Array(target + 1).fill(-1));
 
-    function helperMethod(numbers, target, length, table){
-        if(target === 0) return true;
+//     function helperMethod(numbers, target, length, table){
+//         if(target === 0) return true;
 
-        if(length < 0 || target < 0) return false;
+//         if(length < 0 || target < 0) return false;
 
-        if(table[length][target] !== -1) return table[length][target];
+//         if(table[length][target] !== -1) return table[length][target];
 
-        if(numbers[length - 1] <= target){
-            table[length][target] = helperMethod(numbers, target - numbers[length - 1], length - 1, table) || helperMethod(numbers, target, length -1, table);
-        }else{
-            table[length][target] = helperMethod(numbers, target, length -1, table);
-        }
+//         if(numbers[length - 1] <= target){
+//             table[length][target] = helperMethod(numbers, target - numbers[length - 1], length - 1, table) || helperMethod(numbers, target, length -1, table);
+//         }else{
+//             table[length][target] = helperMethod(numbers, target, length -1, table);
+//         }
         
 
-        return table[length][target];
+//         return table[length][target];
+//     }
+
+//     return helperMethod(numbers, target, length, table);
+// }
+
+// Tabulation
+const subsetSum = (numbers, target) => {
+    let length = numbers.length;
+    let table = Array(length + 1).fill().map(() => Array(target + 1).fill(false));
+
+    
+    for(let i = 0; i <= length; i++){
+        table[i][0] = true;
+    }
+    for(let row = 1; row <= length; row++){
+        for(let col = 1; col <= target; col++){
+            if(numbers[row-1] <= col){
+                table[row][col] = table[row - 1][col - numbers[row - 1]] || table[row -1][col];
+            }else{
+                table[row][col] = table[row - 1][col];
+            }
+        }
     }
 
-    return helperMethod(numbers, target, length, table);
-}
+    console.log(table);
 
+    console.log("----------------------------------------------------------------------------");
+
+    return table[length][target];
+    
+}
 
 
 // lets calculate time

@@ -22,30 +22,53 @@
 // }
 
 //Memoization
+// const countSubsetSum = (numbers, target) =>{
+//     let length = numbers.length;
+//     let table = Array(length + 1).fill().map(() => Array(target + 1).fill(-1));
+    
+//     function helperMethod(numbers, target, length, table){
+//         if(target === 0) return 1;
+//         if(length === 0 || target < 0) return 0;
+    
+//         if(table[length][target] !== -1) return table[length][target];
+        
+//         let count = 0;
+//         if(numbers[length - 1] <= target){
+//             count += helperMethod(numbers, target - numbers[length - 1], length -1, table);
+//         }
+//         count += helperMethod(numbers, target, length - 1, table);
+
+//         table[length][target] = count;
+//         return table[length][target];
+//     }
+
+//     let optimumValue = helperMethod(numbers, target, length, table);
+
+//     return optimumValue;
+// }
+
+
+//Tabulation
 const countSubsetSum = (numbers, target) =>{
     let length = numbers.length;
-    let table = Array(length + 1).fill().map(() => Array(target + 1).fill(-1));
-    
-    function helperMethod(numbers, target, length, table){
-        if(target === 0) return 1;
-        if(length === 0 || target < 0) return 0;
-    
-        if(table[length][target] !== -1) return table[length][target];
-        
-        let count = 0;
-        if(numbers[length - 1] <= target){
-            count += helperMethod(numbers, target - numbers[length - 1], length -1, table);
-        }
-        count += helperMethod(numbers, target, length - 1, table);
-
-        table[length][target] = count;
-        return table[length][target];
+    let table = Array(length + 1).fill().map(() => Array(target + 1).fill(0));
+    for(let i = 0; i <= length; i++){
+        table[i][0] = 1;
     }
 
-    let optimumValue = helperMethod(numbers, target, length, table);
+    for(let row = 1; row <= length; row++){
+        for(let col = 1; col <= target; col++){
+            if(numbers[row -1] <= col){
+                table[row][col] = table[row - 1][col - numbers[row - 1]] + table[row -1][col];
+            }else{
+                table[row][col] = table[row - 1][col];
+            }
+        }
+    }
 
-    return optimumValue;
+    return table[length][target];
 }
+
 
 console.log(countSubsetSum([2, 3, 5, 6, 8, 10], 10));//3
 console.log(countSubsetSum([1, 2, 3, 3], 6));//3
